@@ -1,7 +1,6 @@
 'use client'
 
 import { useEditor, EditorContent } from '@tiptap/react'
-import {useEditorStore} from '@/store/use-editor-store'
 import StarterKit from '@tiptap/starter-kit'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
@@ -16,6 +15,12 @@ import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
+import Link from '@tiptap/extension-link'
+import TextAlign from '@tiptap/extension-text-align'
+
+
+import {useEditorStore} from '@/store/use-editor-store'
+import { FontSizeExtension } from '@/extensions/font-size'
 
 
 export const Editor = () => {
@@ -73,6 +78,15 @@ export const Editor = () => {
             Highlight.configure({
                 multicolor: true,
             }),
+            Link.configure({
+                openOnClick: false,
+                autolink:true,
+                defaultProtocol: "https"
+            }),
+            TextAlign.configure({
+                types: ["heading", "paragraph"],
+            }),
+            FontSizeExtension,
         ],
         content: `
         <p>Hello World! 🌎️</p>

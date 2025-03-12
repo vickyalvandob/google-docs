@@ -87,11 +87,16 @@ body {
   }
 }
 
+
+.tiptap :first-child:not(img):not(svg):not(.custom-icon) {
+  margin-top: 0;
+}
 /* Basic editor styles */
 .tiptap {
-  :first-child {
+  /* :first-child {
     margin-top: 0;
-  }
+  } */
+
 
   /* List styles */
   ul, 
@@ -251,6 +256,16 @@ body {
 
     &.ProseMirror-selectednode {
       outline: 3px solid var(--primary);
+    }
+  }
+
+  /* Link styles */
+  a {
+    @apply text-blue-600;
+    cursor: pointer;
+
+    &:hover {
+      @apply underline;
     }
   }
 
