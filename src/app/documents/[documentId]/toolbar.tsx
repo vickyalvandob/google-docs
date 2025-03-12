@@ -450,7 +450,7 @@ const HeadingLevelButton = () => {
 
     const headings = [
         {
-            label: "Normal text",
+            label: "Normal Text",
             value: 0,
             fontSize: "16px"
         },
@@ -488,14 +488,14 @@ const HeadingLevelButton = () => {
             }
         }
 
-        return "Normal text"
+        return "Normal Text"
     };
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
             <button
-                className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                className="h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
                 >
                     <span className="truncate">
                         {getCurrentHeading()}
