@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from "./ui/input";
 import { AlertDialogFooter } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 interface RenameDialogProps {
     documentId: Id<"documents">;
@@ -26,9 +27,11 @@ export const RenameDialog = ({documentId, initialTitle,children}: RenameDialogPr
     setIsUpdating(true);
 
     update({id:documentId, title:title.trim() || "Untitled"})
-    .then(() => setOpen(false))
+    .catch(() => toast.error("Something went wrong!"))
+    .then(() => toast.success("Document updated"))
     .finally(() => {
         setIsUpdating(false);
+        setOpen(false);
     });
    };
    
