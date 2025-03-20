@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import TextAlign from "@tiptap/extension-text-align";
+// import TextAlign from "@tiptap/extension-text-align";
 
 
 

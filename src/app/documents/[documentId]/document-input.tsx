@@ -26,17 +26,21 @@ export const DocumentInput = ({title, id}: DocumentInputProps) => {
     const mutate = useMutation(api.documents.updateById);
 
     const debounceUpdate = useDebounce((newValue: string) => {
-        if(newValue === title) return;
-
+        if (newValue === title) return;
+      
         setIsPending(true);
-        mutate({id,title:newValue})
-        .then(() => {
+        mutate({ id, title: newValue })
+          .then(() => {
             toast.success("Document updated");
             setIsEditing(false);
-        })
-        .catch(() => toast.error("Something went wrong"))
-        .finally(() => setIsPending(false));
-    });
+            setIsError(false); // pastikan isError kembali false jika sukses
+          })
+          .catch(() => {
+            toast.error("Something went wrong");
+            setIsError(true); // tandai error
+          })
+          .finally(() => setIsPending(false));
+      });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
@@ -55,8 +59,8 @@ export const DocumentInput = ({title, id}: DocumentInputProps) => {
     };
 
     const showLoader = isPending || status === "connecting" || status === "reconnecting";
-    const showError = status === "disconnected";
-
+    const showError = isError || status === "disconnected";
+    
     return ( 
         <div className="flex items-center gap-2">
             {isEditing ? (
