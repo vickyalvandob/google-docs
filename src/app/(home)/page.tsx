@@ -2,7 +2,6 @@
 
 import { usePaginatedQuery } from "convex/react";
 
-import Link from "next/link"
 import { Navbar } from "./navbar"
 import { TemplatesGallery } from "./templates-gallery"
 

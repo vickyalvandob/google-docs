@@ -86,8 +86,8 @@ export const DocumentInput = ({title, id}: DocumentInputProps) => {
                     {title}
                 </span>
             )}
-            {showError && <BsCloudSlash className="size-4" />}
-            {!showError && !showLoader &&   <BsCloudCheck className="size-4 text-green-500" />}
+            {showError && <BsCloudSlash className="size-4 text-red-500" />}
+            {!showError && !showLoader &&   <BsCloudCheck className="size-4 text-muted-foreground" />}
             {showLoader && <LoaderIcon className="size-4 animate-spin text-muted-foreground" />}
             
         </div>

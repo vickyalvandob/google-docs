@@ -9,6 +9,28 @@ const liveblocks = new Liveblocks({
     secret: process.env.LIVEBLOCKS_SECRET_KEY!
 })
 
+/**
+ * Mengonversi HSL ke hex. 
+ * @param h - hue (0-360)
+ * @param s - saturation (0-100)
+ * @param l - lightness (0-100)
+ * @returns string warna dalam format hex, misalnya "#45a1ff"
+ */
+function hslToHex(h: number, s: number, l: number): string {
+    s /= 100;
+    l /= 100;
+    const k = (n: number) => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n: number) => {
+      const color = l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+      return Math.round(255 * color)
+        .toString(16)
+        .padStart(2, "0");
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+  }
+
+
 export async function POST(req: Request) {
     const { sessionClaims } = await auth();
     if(!sessionClaims){
@@ -35,10 +57,21 @@ export async function POST(req: Request) {
         return new Response("Unauthorized", {status:401})
     }
 
+    const name =
+    user.fullName ??
+    user.primaryEmailAddress?.emailAddress ??
+    "Anonymous";
+
+    // Hitung hue berdasarkan nama, lalu konversi HSL -> hex
+    const nameToNumber = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const hue = Math.abs(nameToNumber) % 360;
+    const color = hslToHex(hue, 80, 60); // hsl( hue, 80%, 60% ) -> "#xxxxxx"
+    
     const session = liveblocks.prepareSession(user.id, {
         userInfo: {
             name: user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anonymous",
             avatar: user.imageUrl,
+            color,
         },
     });
     
